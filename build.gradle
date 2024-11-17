@@ -33,6 +33,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	//actuator
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	//Multipart file
+	implementation("software.amazon.awssdk:bom:2.21.0")
+	implementation("software.amazon.awssdk:s3:2.21.0")
 }
 
 tasks.named('test') {
