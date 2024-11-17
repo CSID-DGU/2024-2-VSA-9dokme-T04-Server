@@ -1,19 +1,24 @@
 ---
-name: "[ Bug ] - Bug report"
-about: "❗ Bug Template"
-title: "[ Bug ] - "
-labels: bug ❗
+name: "[ Feature ] - Feature request"
+about: "✨ Feature Template "
+title: "[ Feature ] - "
+labels: feature ✨
 assignees: ''
 
 ---
 
-## 🛠️ 발견된 버그 기능
-[//]: # (어떤 부분에서 버그가 나오는지 적습니다.)
+## 🛠️ 계획된 개발 기능
+[//]: # (어떠한 기능 / 화면을 만드는지 적습니다.)
 
 
 
-## 🌎 발견된 환경
-[//]: # (어떤 환경에서 버그가 나오는지 적습니다.)
+## 🛠 기능 구현 세부사항
+[//]: # (해당 기능들이 요구하는 사항 등을 적습니다.)
+
+
+
+## 🛠 참고사항
+[//]: # (해당 기능들에 있어 특이사항을 적습니다.)
 
 
 
