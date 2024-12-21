@@ -36,6 +36,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	//actuator
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 	// SpringDoc OpenAPI
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0' // 버전 조정

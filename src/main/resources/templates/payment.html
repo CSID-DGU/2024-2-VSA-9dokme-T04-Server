@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>9dokme 정기결제 등록</title>
-    <link rel="stylesheet" href="https://www.9dokme.p-e.kr/css/payment.css">
+    <link rel="stylesheet" href="http://localhost:8080/css/payment.css">
     <script src="https://js.tosspayments.com/v1/payment"></script>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
@@ -26,7 +26,7 @@
             <span>신용 / 체크</span>
         </button>
         <!-- 카카오페이 이미지 -->
-        <img src="https://www.9dokme.p-e.kr/images/kakaoPaymentImg.png" alt="kakao pay" id="kakaoPayImg" class="kakao-pay-img">
+        <img src="http://localhost:8080/images/kakaoPaymentImg.png" alt="kakao pay" id="kakaoPayImg" class="kakao-pay-img">
     </div>
 </div>
 
@@ -59,7 +59,7 @@
         var userEmail = document.getElementById('userEmail').value;
         var userName = document.getElementById('userName').value;
 
-        var baseURL = "https://localhost:8080/swagger-ui/";
+        var baseURL = "http://localhost:8080/swagger-ui/";
 
         var clientKey = "test_ck_d46qopOB89xLAkMQnk0YrZmM75y0";
         var tossPayments = TossPayments(clientKey);
@@ -154,7 +154,7 @@
         }
 
         function goToMainPage() {
-            window.location.href = "https://www.9dokme.p-e.kr/api/mainpage";
+            window.location.href = "http://localhost:8080/api/mainpage";
         }
 
         window.requestPay = requestPay;
