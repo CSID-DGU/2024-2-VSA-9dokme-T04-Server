@@ -23,6 +23,7 @@ public class Member extends BaseEntity {
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private Subscribe subscribe;
 
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
     private String password;

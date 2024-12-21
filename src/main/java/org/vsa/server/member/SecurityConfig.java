@@ -38,7 +38,7 @@ public class SecurityConfig {
             "/webjars/**",        // Webjars used by Swagger UI
             "/api/oauth",         // 카카오 로그인 엔드포인트
             "/api/logout",  // 로그아웃 엔드포인트
-            "/actuator/health" // healthcheck
+            "/actuator/health"
     };
 
     @Bean
@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
                 .authorizeRequests(auth -> auth
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll() // CORS 프리플라이트 요청 허용
-                        .requestMatchers("/api/inquire","/api/view").hasAnyRole("ADMIN", "STANDARD", "PREMIUM")
+                        .requestMatchers("/api/inquire","/api/view").hasAnyAuthority("ADMIN", "STANDARD", "PREMIUM")
                         .requestMatchers(AUTH_WHITELIST).permitAll()// 인증이 필요 없는 요청들
                         .anyRequest().authenticated() // 그 외 요청은 인증 필요
                 )
