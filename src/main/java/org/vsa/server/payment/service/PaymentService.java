@@ -1,5 +1,8 @@
 package org.vsa.server.payment.service;
 
+import org.vsa.server.member.entity.Member;
+import org.vsa.server.member.entity.UserRole;
+import org.vsa.server.member.repository.MemberRepository;
 import org.vsa.server.payment.dto.PaymentRequest;
 import org.vsa.server.payment.entity.Payment;
 import org.vsa.server.payment.entity.PaymentStatus;
@@ -27,6 +30,8 @@ public class PaymentService {
 
     @Autowired
     private PaymentRepository paymentRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -96,7 +101,57 @@ public class PaymentService {
         }
     }
 
-    // 3. 결제 금액 검증 및 결제 내역 저장
+    // 3. 결제 금액 검증 및 결제 내역 저장(일반 사용자 결제 저장 로직)
+    public void verifyAndSavePayment(PaymentRequest paymentRequest, String impUid, String userEmail) throws Exception {
+
+        // 1) test for UNPAID - 임의로 예외 발생
+        //throw new Exception("Intentionally failing payment verification for testing.");
+
+        // 2) 정상 동작에 대한 코드
+        JsonNode paymentData = getPaymentData(impUid);
+
+        //구매 사용자
+        Member paymentMember = memberRepository.findBySocialId(userEmail);
+
+        // 결제 금액 검증
+        int amountFromRequest = paymentRequest.amount(); // 수정된 부분
+        int amountFromIamport = paymentData.path("amount").asInt();
+
+        if(amountFromIamport == 7900){
+            paymentMember.setUserRole(UserRole.STANDARD);
+        }else if(amountFromIamport == 12900){
+            paymentMember.setUserRole(UserRole.PREMIUM);
+        }
+
+        memberRepository.save(paymentMember);
+
+
+
+        if (amountFromRequest != amountFromIamport) {
+            throw new Exception("Payment amount mismatch");
+        }
+
+        // 결제 내역 저장 또는 업데이트
+        Payment payment = paymentRepository.findByImpUid(impUid);
+        if (payment == null) {
+            payment = new Payment();
+            payment.setImpUid(impUid);
+        }
+
+        payment.setMerchantUid(paymentRequest.merchantUid());
+        payment.setAmount(amountFromIamport);
+        payment.setBuyerEmail(paymentData.path("buyer_email").asText());
+        payment.setBuyerName(paymentData.path("buyer_name").asText());
+        payment.setBuyerTel(paymentData.path("buyer_tel").asText());
+        payment.setStatus(paymentData.path("status").asText());
+        payment.setPaymentType(paymentRequest.paymentType());
+
+        paymentRepository.save(payment);
+    }
+
+
+
+    // 3. 결제 금액 검증 및 결제 내역 저장(Batch 사용 로직)
     public void verifyAndSavePayment(PaymentRequest paymentRequest, String impUid) throws Exception {
 
         // 1) test for UNPAID - 임의로 예외 발생
@@ -130,6 +185,9 @@ public class PaymentService {
 
         paymentRepository.save(payment);
     }
+
+
+
 
     public void markPaymentAsFailed(Payment payment) {
         payment.setStatus(PaymentStatus.UNPAID.name());

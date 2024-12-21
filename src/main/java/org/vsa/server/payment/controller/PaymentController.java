@@ -1,5 +1,6 @@
 package org.vsa.server.payment.controller;
 
+import org.vsa.server.common.FindLoginMember;
 import org.vsa.server.payment.dto.PaymentRequest;
 import org.vsa.server.payment.dto.WebhookRequest;
 import org.vsa.server.payment.entity.PaymentType;
@@ -58,8 +59,12 @@ public class PaymentController {
     @PostMapping("/payments/complete")
     @ResponseBody
     public ResponseEntity<String> completePayment(@RequestBody PaymentRequest paymentRequest, @RequestParam(required = false) String imp_uid) {
+
+        String memberEmail = FindLoginMember.getCurrentUserId();
+
+
         try {
-            paymentService.verifyAndSavePayment(paymentRequest, imp_uid);
+            paymentService.verifyAndSavePayment(paymentRequest, imp_uid, memberEmail);
             return ResponseEntity.ok("Payment verified and saved successfully");
         } catch (Exception e) {
             return ResponseEntity.status(400).body("Payment verification failed: " + e.getMessage());

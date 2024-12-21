@@ -1,5 +1,6 @@
 package org.vsa.server.payment.config;
 
+import org.vsa.server.common.FindLoginMember;
 import org.vsa.server.payment.dto.PaymentRequest;
 import org.vsa.server.payment.entity.Payment;
 import org.vsa.server.payment.entity.PaymentStatus;
@@ -29,6 +30,9 @@ public class PaymentRetryJobConfig {
 
     @Autowired
     private PaymentRepository paymentRepository;
+    @Autowired
+    private FindLoginMember findLoginMember;
+
 
     @Bean
     public Job retryPaymentJob(JobRepository jobRepository, Step retryPaymentStep) {

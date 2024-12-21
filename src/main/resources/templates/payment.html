@@ -59,7 +59,7 @@
         var userEmail = document.getElementById('userEmail').value;
         var userName = document.getElementById('userName').value;
 
-        var baseURL = "https://www.9dokme.p-e.kr/";
+        var baseURL = "https://localhost:8080/swagger-ui/";
 
         var clientKey = "test_ck_d46qopOB89xLAkMQnk0YrZmM75y0";
         var tossPayments = TossPayments(clientKey);
@@ -92,7 +92,7 @@
                 pay_method: "card",
                 merchant_uid: "order_no_" + new Date().getTime(),
                 name: "9dokme 정기결제 등록",
-                amount: 9900,
+                amount: 7900,
                 buyer_email: userEmail,
                 buyer_name: userName,
                 buyer_tel: "010-1234-5678",

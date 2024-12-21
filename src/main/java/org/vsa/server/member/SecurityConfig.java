@@ -22,7 +22,7 @@ public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
     private final MemberRepository memberRepository;
-    private final AuthenticationConfiguration authenticationConfiguration;;
+    private final AuthenticationConfiguration authenticationConfiguration;
 
     public SecurityConfig(JwtUtil jwtUtil,AuthenticationConfiguration authenticationConfiguration, MemberRepository memberRepository) {
         this.authenticationConfiguration = authenticationConfiguration;
@@ -31,14 +31,13 @@ public class SecurityConfig {
     }
 
     private static final String[] AUTH_WHITELIST = {
-            "/**",
             "/v3/api-docs/**",   // Swagger 3 documentation endpoint
             "/swagger-ui/**",     // Swagger UI endpoint
             "/swagger-resources/**",
             "/swagger-ui.html",
             "/webjars/**",        // Webjars used by Swagger UI
             "/api/oauth",         // 카카오 로그인 엔드포인트
-            "/api/logout"// 로그아웃 엔드포인트
+            "/api/logout",  // 로그아웃 엔드포인트
     };
 
     @Bean
@@ -47,7 +46,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
                 .authorizeRequests(auth -> auth
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll() // CORS 프리플라이트 요청 허용
-                        .requestMatchers(AUTH_WHITELIST).permitAll() // 인증이 필요 없는 요청들
+                        .requestMatchers("/api/inquire","/api/view").hasAnyRole("ADMIN", "STANDARD", "PREMIUM")
+                        .requestMatchers(AUTH_WHITELIST).permitAll()// 인증이 필요 없는 요청들
                         .anyRequest().authenticated() // 그 외 요청은 인증 필요
                 )
                 .sessionManagement(session -> session

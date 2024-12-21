@@ -2,6 +2,7 @@ package org.vsa.server.member.service;
 
 import org.vsa.server.member.dto.response.KakaoTokenResponseDto;
 import org.vsa.server.member.entity.Member;
+import org.vsa.server.member.entity.UserRole;
 import org.vsa.server.member.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -160,6 +161,7 @@ public class KakaoService {
         if(duplicateMember==null){
             initMember.setSocialId(email);
             initMember.setNickName(nickName);
+            initMember.setUserRole(UserRole.NONE);
 
             memberRepository.save(initMember);
         }
