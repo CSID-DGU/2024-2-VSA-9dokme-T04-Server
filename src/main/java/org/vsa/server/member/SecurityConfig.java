@@ -38,6 +38,7 @@ public class SecurityConfig {
             "/webjars/**",        // Webjars used by Swagger UI
             "/api/oauth",         // 카카오 로그인 엔드포인트
             "/api/logout",  // 로그아웃 엔드포인트
+            "/actuator/health" // healthcheck
     };
 
     @Bean
