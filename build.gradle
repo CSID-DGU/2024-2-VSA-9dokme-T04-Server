@@ -4,7 +4,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.6'
 }
 
-group = 'org.9dokme'
+group = 'org.vsa'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -24,20 +24,42 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.nimbusds:nimbus-jose-jwt:9.37.2'
+	implementation 'io.netty:netty-all:4.1.75.Final'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	//actuator
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	//Multipart file
-	implementation("software.amazon.awssdk:bom:2.21.0")
-	implementation("software.amazon.awssdk:s3:2.21.0")
+
+	// SpringDoc OpenAPI
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0' // 버전 조정
+
+	// Swagger Core 버전을 명시적으로 추가
+	implementation 'io.swagger.core.v3:swagger-core:2.2.10'
+
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+	implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+
+	// org.json.simple 사용을 위해 추가
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
+	// SpringBatch 사용을 위해 추가
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	implementation 'org.springframework:spring-context-support'
+
+	//spring security
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//jwt
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	//구글 이메일
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 }
 
 tasks.named('test') {
