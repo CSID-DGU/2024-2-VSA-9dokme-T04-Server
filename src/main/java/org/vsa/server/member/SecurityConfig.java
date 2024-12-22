@@ -49,8 +49,7 @@ public class SecurityConfig {
                 .authorizeRequests(auth -> auth
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll() // CORS 프리플라이트 요청 허용
                         .requestMatchers("/api/inquire","/api/view").hasAnyAuthority("ADMIN", "STANDARD", "PREMIUM")
-                        .requestMatchers(AUTH_WHITELIST).permitAll()// 인증이 필요 없는 요청들
-                        .anyRequest().authenticated() // 그 외 요청은 인증 필요
+                        .anyRequest().permitAll() // 그 외 요청은 인증 필요
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT 사용 시 STATELESS 설정
