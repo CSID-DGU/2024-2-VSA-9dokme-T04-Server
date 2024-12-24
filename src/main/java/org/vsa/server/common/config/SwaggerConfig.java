@@ -24,7 +24,7 @@ public class SwaggerConfig {
 
         // 서버 URL을 명시적으로 HTTPS로 설정
         Server server = new Server()
-                .url("http://localhost:8080")
+                .url("https://api.9dokme.o-r.kr")
                 .description("배포된 서버");
 
         SecurityScheme bearerAuth = new SecurityScheme()
