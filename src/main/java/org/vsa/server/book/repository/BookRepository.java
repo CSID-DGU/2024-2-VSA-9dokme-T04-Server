@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
@@ -41,6 +42,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query("SELECT b FROM Book b JOIN Bookmark bm ON b.bookId = bm.book.bookId WHERE bm.member.memberId = :memberId")
     Page<Book> findBooksByMember(@Param("memberId") Long memberId, Pageable pageable);
+
+    Optional<Book> findByTitleAndPublisher(String title, String publisher);
 
 
 }

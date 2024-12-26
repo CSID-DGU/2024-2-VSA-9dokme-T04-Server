@@ -5,16 +5,21 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.vsa.server.book.entity.Book;
+import org.vsa.server.book.repository.BookRepository;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 
 @Service
 @RequiredArgsConstructor
 public class BarcodeService {
+
+    private final BookRepository bookRepository;
 
     public String extractISBN(String imagePath) {
         try {
@@ -39,5 +44,9 @@ public class BarcodeService {
         } catch (IOException | NotFoundException e) {
             throw new RuntimeException("바코드 인식 실패: " + e.getMessage(), e);
         }
+    }
+
+    public Optional<Book> findByTitleAndPublisher(String title, String publisher) {
+        return bookRepository.findByTitleAndPublisher(title, publisher);
     }
 }
