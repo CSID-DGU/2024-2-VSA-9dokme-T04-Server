@@ -38,14 +38,12 @@ public class SecurityConfig {
             "/webjars/**",        // Webjars used by Swagger UI
             "/api/oauth",         // 카카오 로그인 엔드포인트
             "/api/logout",  // 로그아웃 엔드포인트
-            "/actuator/health"
     };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable()) // CSRF 비활성화
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeRequests(auth -> auth
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll() // CORS 프리플라이트 요청 허용
                         .requestMatchers("/api/inquire","/api/view").hasAnyAuthority("ADMIN", "STANDARD", "PREMIUM")
@@ -53,10 +51,10 @@ public class SecurityConfig {
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // JWT 사용 시 STATELESS 설정
-                .logout(logout -> logout
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout")) // 로그아웃 URL 지정
-                        .logoutSuccessUrl("/") // 로그아웃 성공 후 리다이렉트 URL
-                        .deleteCookies("JSESSIONID")) // 로그아웃 시 세션 쿠키 삭제
+//                .logout(logout -> logout
+//                        .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout")) // 로그아웃 URL 지정
+//                        .logoutSuccessUrl("/") // 로그아웃 성공 후 리다이렉트 URL
+//                        .deleteCookies("JSESSIONID")) // 로그아웃 시 세션 쿠키 삭제
                 .addFilterBefore(new JWTFilter(jwtUtil, memberRepository), UsernamePasswordAuthenticationFilter.class) // JWT Filter 추가
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())); // CORS 설정
 

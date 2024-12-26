@@ -70,7 +70,7 @@ public class MemberController {
         return SuccessResponse.success(String.valueOf(userInfo),member.getUserRole());
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     @Operation(summary = "카카오 로그아웃", description = "카카오 로그아웃")
     public SuccessResponse<?> kakaoLogout(HttpSession session) {
         String accessToken = (String)session.getAttribute("accessToken");

@@ -2,6 +2,7 @@ package org.vsa.server.book.dto.response;
 
 import java.time.LocalDateTime;
 
+
 public record BookInfoResponse(
         Long bookId,
         String title,

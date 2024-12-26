@@ -94,7 +94,7 @@ public class BookService {
 
         Member member = memberRepository.findByMemberId(memberId);
 
-        Pageable pageable = PageRequest.of(pageNo,4);
+        Pageable pageable = PageRequest.of(pageNo,8);
         Page<Book> bookPage;
 
         if(title.equals("")){
@@ -176,6 +176,28 @@ public class BookService {
     }
 
     @Transactional
+    public void updateBookFilePaths(Long bookId, String imagePath, String pdfPath) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookException(ErrorMessage.NOT_FOUND_BOOK));
+
+        book.update(
+                book.getTitle(),
+                book.getPublishDate(),
+                book.getAuthor(),
+                book.getPublisher(),
+                book.getCategory(),
+                book.getDescription(),
+                imagePath,
+                pdfPath,
+                book.getBookChapter(),
+                book.getBookFullPage(),
+                book.getRent()
+        );
+
+        bookRepository.save(book);
+    }
+
+    @Transactional
     public BookInfoResponse createBook(BookCreateRequest request) throws MessagingException {
         Book book = Book.create(
                 request.title(),
@@ -230,12 +252,6 @@ public class BookService {
 
             notificationRepository.save(notification);
         }
-
-
-
-
-
-
         return toResponse(book);
     }
 
