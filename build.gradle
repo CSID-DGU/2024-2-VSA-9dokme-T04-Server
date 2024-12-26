@@ -63,15 +63,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	//pdf box
 	implementation 'org.apache.pdfbox:pdfbox:2.0.32'
-	//ocr
-	implementation 'net.sourceforge.tess4j:tess4j:5.4.0'
 	//Multipart file
 	implementation("software.amazon.awssdk:bom:2.21.0")
 	implementation("software.amazon.awssdk:s3:2.21.0")
-	// OpenCV Wrapper for Java (by nu.pattern)
-	implementation 'nu.pattern:opencv:4.5.3-0'
 	// Tesseract OCR Library for Java
 	implementation 'net.sourceforge.tess4j:tess4j:5.6.0'
+	//ZXing(Zebra Crossing)
+	implementation 'com.google.zxing:core:3.5.2'
+	implementation 'com.google.zxing:javase:3.5.2'
+	// jackson
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'org.springframework:spring-web'
 
 }
 
